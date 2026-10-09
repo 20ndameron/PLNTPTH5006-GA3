@@ -10,7 +10,6 @@
 
 ### 2: Initialize a Git repository, and commit the README and `.gitignore`
 
-<!-- No command/output needed here -- we check the repo directly. -->
 
 ### 3: Commit throughout the assignment
 
