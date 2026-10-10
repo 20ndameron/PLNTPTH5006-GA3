@@ -151,7 +151,9 @@ Finished
 
 ### 8: Get a MultiQC container link
 
-*Answer*: The container link (URI) is: oras://community.wave.seqera.io/library/multiqc:1.35--562c547b518ebe20
+*Answer*: The container link (URI) is:
+
+oras://community.wave.seqera.io/library/multiqc:1.35--562c547b518ebe20
 
 ### 9: MultiQC's help info, and the MultiQC command
 
@@ -159,7 +161,8 @@ Code to run `multiqc --help` with the container:
 
 ``` bash
 # Your command:
-apptainer exec oras://community.wave.seqera.io/library/multiqc:1.35--562c547b518ebe20 multiqc --help
+apptainer exec oras://community.wave.seqera.io/library/multiqc:1.35--562c547b518ebe20 \
+multiqc --help
 ```
 
 
@@ -167,8 +170,8 @@ The MultiQC command to run MultiQC on `results/fastqc` with output in `results/m
 
 ``` bash
 # Your command:
-apptainer exec oras://community.wave.seqera.io/library/multiqc:1.35--562c547b518ebe20 multiqc \
-    results/fastqc -o results/multiqc
+apptainer exec oras://community.wave.seqera.io/library/multiqc:1.35--562c547b518ebe20 \
+multiqc results/fastqc -o results/multiqc
 ```
 
 ### 10: Write the `multiqc.sh` script
@@ -214,7 +217,11 @@ bash scripts/multiqc.sh results/fastqc results/multiqc
 
 *Answer* (options and arguments, and what each does):
 
+- The provided pandoc command requires two arguments. For the first option (`-o`), you provide pandoc with the output file name and type. It is important to specify the the file type for the output file. The second argument is the input file, which does not requre an option (like `-i` or `--input`) before it. Here you enter the markdown file (`.md`) that you want to render into an `.html` or a `.pdf`. Unlike previous commands that we have used in this class, pandoc requires an output input argument order rather than an input output argument order. 
+
 *Answer* (how does Pandoc know which output format to produce?):
+
+- Pandoc is able to determine which output format to produce based on the file type your specify at the end of the output filename. These file types can include things like `.html` and `.pdf`. 
 
 ### 15: Render your README to PDF and HTML
 
@@ -226,15 +233,20 @@ pandoc -o README.pdf README.md
 
 ``` bash
 # Your command:
+pandoc -o README.html README.md
 ```
 
 ### 16: Should the rendered files be committed?
 
 *Answer*: Should the rendered files be committed to your Git repo? Why/why not?
 
+- You should not commit the rendered README files to your Git repo as these files are derived from your markdown file and can always be regenerated. You should only commit scripts, project documentation, key metadata, and manuscripts to the Git repo. Results and data should not be committed. In this case, the rendered `README.html` and `README.pdf` files would be considered results. To prevent these files from being added to your repo when you commit, you can move them from your working directory (i.e. `GA3/`) to the `results/` or `data/` subdirectories. You can also add these files to your `.gitignore` file so git ignores them. For this assignment, I will add these files to my `.gitignore` file.
+
 ### 17: Install the PDF Viewer extension and view the PDF
 
 *Answer*: One observation about the rendered PDF file:
+
+- Unlike the markdown format, which shows code contained within dedicated blocks, the `.pdf` file just prints the line of code on a seperate line. Code is also not wrapped like in markdown, causing a line of code that is longer than the page width to simply run of the page. The `.pdf` also does not contain any interactive elements like the markdown file does. 
 
 ## Part E: Publish your repo on GitHub
 
