@@ -252,15 +252,12 @@ pandoc -o README.html README.md
 
 ### 18: Create a GitHub repository
 
-<!-- No command/output needed here -- we check your GitHub repo directly. -->
 
 ### 19: Connect your local repo to GitHub, and push
 
-<!-- No command/output needed here -- we check your GitHub repo directly. -->
 
 ### 20: Create an Issue to tag the instructors
 
-<!-- No command/output needed here -- we check your GitHub repo directly. -->
 
 ------------------------------------------------------------------------
 
