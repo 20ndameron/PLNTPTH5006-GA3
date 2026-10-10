@@ -267,19 +267,53 @@ pandoc -o README.html README.md
 
 *Answer* (one insight you gained):
 
+- Looking throught the MultiQC, it is helpful to look at all quality results for each sample at once. This helps you determine if there are any outlier samples or samples with poor read quality. It was especially insightful to see the read depth and percent of duplicate reads for each sample. This further allows you to determine if one sample had a lower sequencing depth or may have been inaccurately sequenced. I especially liked the functionality that the MultiQC html provided. It was nice to be able to look each section through multiple visual formats (e.g. violin plot vs bar plot) and even compare sections to each other using scatter plots. Looking at our samples, we can see that all samples had a Phred score above 25, indicating good quality. 
+
 *Answer* (one thing you're confused about):
+
+- When looking at the MultiQC report, I was confused on what the "per base N content" and "sequence length distribution" sections were describing. Is N content just a measure of sequences that could not be assigned either A, T, C, or G? What is a good threshold for per base N content? For sequence length distribution, is this just how much of the sample was actually sequenced. For example, if you are sequencing on an Illumina with a 150-bp sequence configuration, a sequence length distribution of 75 would mean that only 72 bases of that sample was sequenced, falling short of the target 150-bp sequence length by 75 bases? What is a good threshold for this? I know that QIIME2 gives similiar quality metrics like this but what is the benefit of using fastqc and multiqc over the QIIME pipeline? Are these just other methods for getting to the same end goal with QIIME2 just being a more all-inclusive package?
 
 ### 22: Pandoc versions
 
 ``` bash
 # Your command:
+
+# Check pandoc version currently being used
+pandoc -v
+
+# Check pandoc version available as modules on OSC
+module spider pandoc
+
+# Load most current version of pandoc available on OSC as module
+module load pandoc/3.6.4
+
+# Confirm most recent version of pandoc is being used
+pandoc -v
 ```
 
+``` 
+# Check pandoc version currently being used
 The output of the command(s) was:
+pandoc 2.14.0.3
 
-```         
+# Check pandoc version available as modules on OSC
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+  pandoc:
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+     Versions:
+        pandoc/2.19.2
+        pandoc/3.6.4
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Confirm most recent version of pandoc is being used
+pandoc 3.6.4
 ```
 
 *Answer*: Is the Pandoc version available by default the most recent one?
 
+- The Pandoc version that is available by default (Version 2.14.0.3) is not the most recent version. According to the Pandoc GitHub repo, the most recent version of Pandoc is Version 3.12.1. 
+
 *Answer*: Which Pandoc version are you using after loading the module?
+
+- After loading the pandoc module with the most recent version available on OSC, we see that we are using Version 3.6.4. Using a container would allow users to use a version of pandoc more current than this. (Rather than using a container, could you download the most recent of pandoc directly from GitHub or would this not be feasable do to permission restrictions within OSC?)
