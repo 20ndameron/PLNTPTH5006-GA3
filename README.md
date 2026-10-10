@@ -99,7 +99,6 @@ Finished
 
 ### 6: Write the `printline.sh` script
 
-<!-- No need to paste the script: we'll look at scripts/printline.sh directly. -->
 
 ### 7: Test `printline.sh` twice
 
@@ -152,7 +151,7 @@ Finished
 
 ### 8: Get a MultiQC container link
 
-*Answer*: The container link (URI) is:
+*Answer*: The container link (URI) is: oras://community.wave.seqera.io/library/multiqc:1.35--562c547b518ebe20
 
 ### 9: MultiQC's help info, and the MultiQC command
 
@@ -160,19 +159,20 @@ Code to run `multiqc --help` with the container:
 
 ``` bash
 # Your command:
+apptainer exec oras://community.wave.seqera.io/library/multiqc:1.35--562c547b518ebe20 multiqc --help
 ```
 
-<!-- You don't need to paste the MultiQC help output -->
 
 The MultiQC command to run MultiQC on `results/fastqc` with output in `results/multiqc`:
 
 ``` bash
 # Your command:
+apptainer exec oras://community.wave.seqera.io/library/multiqc:1.35--562c547b518ebe20 multiqc \
+    results/fastqc -o results/multiqc
 ```
 
 ### 10: Write the `multiqc.sh` script
 
-<!-- No need to paste the script: we'll look at scripts/multiqc.sh directly. -->
 
 ### 11: Run `multiqc.sh`
 
@@ -180,29 +180,31 @@ Code to run the script:
 
 ``` bash
 # Your command:
+bash scripts/multiqc.sh
 ```
 
-<!-- You don't need to paste the MultiQC logging output -->
-
-*Answer*: Number of FastQC reports MultiQC found:
+*Answer*: Number of FastQC reports MultiQC found: 44
 
 *Answer*: Does that match what you expected? Why/why not?
 
+- The number of FastQC reports found by MultiQC was not what I initially expected. Prior to running MultiQC, I viewed the files in the `fastqc` subdir and saw that samples ranged from `S63_*` to `S86_8*` (24 samples). With forward and reverse reads for each sample (2 reads per sample) and two file types per sample read (`.zip` and `.html`), I expected a total of 96 files within the subdir, 48 of which would be `.html` files. However, MultiQC only found 88 total files within the subdir, 44 of which were `.html` files that it could read. After some further digging, I noticed that `S72_*` and `S73_*` samples did not exist. These two missing samples (which each have 2 `.html` and 2 `.zip` files) account for the lower than expected fastqc file count from MultiQC. After more accurately determining the amount of files within the folder (88), the 44 files found was expected (MultiQC only reads `.html`).
+
 ### 12: Make `multiqc.sh` accept arguments, and rerun it
 
-<!-- No need to paste the script: we'll look at scripts/multiqc.sh and its Git history directly. -->
 
 Code to rerun the script:
 
 ``` bash
 # Your command:
+bash scripts/multiqc.sh results/fastqc results/multiqc
 ```
 
-<!-- No need to paste any output -->
 
 ### 13: Differences between the two MultiQC runs
 
 *Answer*:
+
+- After makeing changes to the script so the input and output directories were no long hardcoded, then re-running it, a new line appeared in the terminal output. MultiQC now tells the user that existing reports were already found within this folder and to avoid overwriting them, MultiQC adds a `_1` to the end. This is useful because it prevents users from accidentally overwritting their files. MultiQC allows users to overwrite these files if they choose to by using the `--force` argument, which would need to be added to the script. 
 
 ------------------------------------------------------------------------
 
