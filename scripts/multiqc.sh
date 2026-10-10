@@ -5,10 +5,10 @@ set -euo pipefail
 CONTAINER=oras://community.wave.seqera.io/library/multiqc:1.35--562c547b518ebe20
 
 # Set input dir
-indir=results/fastqc
+indir="$1"
 
 # Set output dir
-outdir=results/multiqc
+outdir="$2"
 
 # Script
 echo "Running Multiqc"
